@@ -1,0 +1,13 @@
+---
+- hosts: meter
+  become: true
+  roles: 
+    - role: meter-relayer
+      keystore_password: "Pa$$w0rd"
+      eth_start_block: "12612223"
+      eth_rpc_endpoint: "http://<ETHEREUM_NODE_IP>:8545"
+      mtr_start_block: "12331193"
+      mtr_rpc_endpoint: "http://<METER_NODE_IP>:8545"
+      bsc_start_block: "8199580"
+      bsc_rpc_endpoint: "ws://<BINANCE_NODE_IP>:8546"
+      bsc_http: "false"
