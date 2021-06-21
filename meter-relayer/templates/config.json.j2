@@ -1,0 +1,58 @@
+{
+  "chains": [
+    {
+      "name": "eth",
+      "type": "ethereum",
+      "id": "1",
+      "endpoint": "{{ eth_rpc_endpoint }}",
+      "from": "{{ relayer_public_key.stdout }}",
+      "opts": { 
+        "bridge": "{{ eth_bridge_address }}",
+        "erc20Handler": "{{ eth_erc20_handler }}",
+        "genericHandler": "{{ eth_generic_handler }}",
+        "gasLimit": "{{ eth_gas_limit }}",
+        "maxGasPrice": "{{ eth_max_gas_price }}",
+        "startBlock": "{{ eth_start_block }}",
+        "http": "{{ eth_http }}",
+        "gasMultiplier": "{{ eth_gas_multiplier }}",
+        "blockConfirmations": "{{ eth_block_confirmations }}"
+      }
+    },
+    {
+      "name": "meter",
+      "type": "ethereum",
+      "id": "3",
+      "endpoint": "{{ mtr_rpc_endpoint }}",
+      "from": "{{ relayer_public_key.stdout }}",
+      "opts": { 
+        "bridge": "{{ mtr_bridge_address }}",
+        "erc20Handler": "{{ mtr_erc20_handler }}",
+        "genericHandler": "{{ mtr_generic_handler }}",
+        "gasLimit": "{{ mtr_gas_limit }}",
+        "maxGasPrice": "{{ mtr_max_gas_price }}",
+        "startBlock": "{{ mtr_start_block }}",
+        "http": "{{ mtr_http }}",
+        "gasMultiplier": "{{ mtr_gas_multiplier }}",
+        "blockConfirmations": "{{ mtr_block_confirmations }}"
+      }
+    },
+    { 
+      "name": "bsc",
+      "type": "ethereum",
+      "id": "4",
+      "endpoint": "{{ bsc_rpc_endpoint }}",
+      "from": "{{ relayer_public_key.stdout }}",
+      "opts": { 
+        "bridge": "{{ bsc_bridge_address }}",
+        "erc20Handler": "{{ bsc_erc20_handler }}",
+        "genericHandler": "{{ bsc_generic_handler }}",
+        "gasLimit": "{{ bsc_gas_limit }}",
+        "maxGasPrice": "{{ bsc_max_gas_price }}",
+        "startBlock": "{{ bsc_start_block }}",
+        "http": "{{ bsc_http }}",
+        "gasMultiplier": "{{ bsc_gas_multiplier }}",
+        "blockConfirmations": "{{ bsc_block_confirmations }}"
+      }
+    }
+  ]
+}

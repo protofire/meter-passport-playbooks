@@ -1,0 +1,39 @@
+---
+# defaults file for meter-relayer
+go_version: "1.16.4"
+go_shasum: "7154e88f5a8047aad4b80ebace58a059e36e7e2e4eb3b383127a28c711b4ff59"
+docker_compose_version: "1.29.2"
+docker_compose_shasum: "f3f10cf3dbb8107e9ba2ea5f23c1d2159ff7321d16f0a23051d68d8e2547b323"
+keystore_path: "/root/chainbridge/keys/"
+
+### Relayer configuration ###
+
+# ETH chain
+eth_bridge_address: "0xbD515E41DF155112Cc883f8981CB763a286261be"
+eth_erc20_handler: "0xde4fC7C3C5E7bE3F16506FcC790a8D93f8Ca0b40"
+eth_generic_handler: "0x517828d2549cEC09386f89a67E92825E26740240"
+eth_gas_limit: "1000000"
+eth_max_gas_price: "1000000000000"
+eth_gas_multiplier: "1"
+eth_block_confirmations: "25"
+eth_http: "true"
+
+# MTR chain
+mtr_bridge_address: "0x7C6Fb3B4a23BD9b0c2874bEe4EF672C64e83838B"
+mtr_erc20_handler: "0x60f1ABAa3ED8A573c91C65A5b82AeC4BF35b77b8"
+mtr_generic_handler: "0x89CA53Bf11d24D32A7aC3aDb7750868360c90590"
+mtr_gas_limit: "8000000"
+mtr_max_gas_price: "500000000000"
+mtr_gas_multiplier: "1"
+mtr_block_confirmations: "0"
+mtr_http: "true"
+
+# BSC chain
+bsc_bridge_address: "0x223fafbc2cA53A75CcfF5B2369128d3d1a828F36"
+bsc_erc20_handler: "0x5945241BBB68B4454bB67Bd2B069e74C09AC3D51"
+bsc_generic_handler: "0x83Fc24eB56121FA2A05e0b5170E7310738425839"
+bsc_gas_limit: "1000000"
+bsc_max_gas_price: "10000000000"
+bsc_gas_multiplier: "1.4"
+bsc_block_confirmations: "3"
+bsc_http: "true"

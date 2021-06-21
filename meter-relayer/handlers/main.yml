@@ -1,0 +1,6 @@
+---
+# handlers file for meter-relayer
+- name: Restart chainbridge
+  systemd:  
+    name: chainbridge
+    state: restarted

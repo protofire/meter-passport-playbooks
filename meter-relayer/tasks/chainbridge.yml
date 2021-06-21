@@ -1,0 +1,86 @@
+---
+- name: Clone a repository
+  git:
+    repo: https://github.com/meterio/chainbridge
+    dest: /root/chainbridge
+    force: yes
+
+- name: Install make [Debian]
+  apt:
+    name: make
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install make [Red Hat]
+  yum:
+    name: make
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == "Red Hat"
+
+- name: Unpack go
+  unarchive:
+    src: https://golang.org/dl/go{{ go_version }}.linux-amd64.tar.gz
+    dest: /usr/local/
+    remote_src: yes
+    creates: /usr/local/go
+
+- name: Build the executable
+  command: "make build"
+  args:
+    chdir: /root/chainbridge
+    creates: /root/chainbridge/chainbridge
+  environment:
+    PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/go/bin
+    GOPATH: /root/go/
+
+- name: Create a Keypair
+  shell: "./build/chainbridge --keystore {{ keystore_path }} accounts generate --secp256k1 --password {{ keystore_password }}"
+  args:
+    chdir: /root/chainbridge
+    creates: "{{ keystore_path }}"
+  when: private_key is not defined
+
+- name: Import Private Key
+  shell: "./build/chainbridge --keystore {{ keystore_path }} accounts import --privateKey {{ private_key }} --password {{ keystore_password }}"
+  args:
+    chdir: /root/chainbridge
+    creates: "{{ keystore_path }}"
+  when: private_key is defined
+
+- name: Register Relayer Public Key Variable
+  shell: "ls /root/chainbridge/keys | awk -F '[.]' '{ print $1 }'"
+  register: relayer_public_key
+
+- name: Create unit file for chainbridge
+  copy:
+    src: chainbridge.service
+    dest: /etc/systemd/system/chainbridge.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Modify docker-compose.yml file for chainbridge
+  template:
+    src: docker-compose.yml.j2
+    dest: /root/chainbridge/docker-compose.yml
+    force: yes
+    backup: yes
+    mode: '0640'
+
+- name: Generate config.json
+  template:
+    src: config.json.j2
+    dest: /root/chainbridge/config/config.json
+    force: yes
+    backup: yes
+    mode: '0640'
+  notify:
+    - "Restart chainbridge"
+
+- name: Enable and run chainbridge service
+  systemd:  
+    name: chainbridge
+    state: started
+    enabled: yes

@@ -1,0 +1,5 @@
+---
+# tasks file for meter-node
+- include: install_docker.yml
+- include: install_docker_compose.yml
+- include: chainbridge.yml

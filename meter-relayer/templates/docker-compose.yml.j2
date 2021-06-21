@@ -1,0 +1,19 @@
+---
+version: '3'
+services:
+  bridge:
+    build:
+      context: .
+    container_name: chainbridge
+    restart: always
+    environment:
+      - KEYSTORE_PASSWORD={{ keystore_password }}
+    command:
+      - "--keystore"
+      - "/keys"
+      - "--config"
+      - "/config/config.json"
+      - "--metrics"
+    volumes:
+      - /root/chainbridge/config:/config
+      - /root/chainbridge/keys:/keys/
